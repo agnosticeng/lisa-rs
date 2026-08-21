@@ -1,0 +1,27 @@
+# Rust build artifacts
+/target
+Cargo.lock
+**/*.rs.bk
+
+# macOS
+.DS_Store
+
+# Python (reference scripts use a venv outside the repo)
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Generated reference outputs (written by scripts/mlx_*_truth.py)
+/tmp/
+
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Env / secrets
+.env
+.env.*

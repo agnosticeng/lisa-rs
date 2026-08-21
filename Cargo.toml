@@ -1,0 +1,17 @@
+[package]
+name = "lisa-rs"
+version = "0.1.0"
+edition = "2024"
+description = "LLM Inference for Silicon Architecture (lisa-rs): clean-room Rust + Metal inference for Qwen3.8-27B"
+authors = ["didierfranc"]
+
+[dependencies]
+serde_json = { version = "1.0" }
+memmap2 = { version = "0.9" }
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync", "time"] }
+axum = "0.7"
+tokio-stream = "0.1"
+tokenizers = { version = "0.20", features = ["onig"] }
+ratatui = "0.30.2"
+crossterm = "0.29.0"

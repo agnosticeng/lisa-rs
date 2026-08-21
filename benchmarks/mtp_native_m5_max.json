@@ -1,0 +1,23 @@
+{
+  "date": "2026-08-20",
+  "device": "Apple M5 Max",
+  "tokens": 64,
+  "prompt": "Implement an in-place stable merge sort in Rust and explain its complexity.",
+  "prompt_tokens": 14,
+  "verify_mode": "batched_m3",
+  "exact_match": true,
+  "target_tokens_per_second": 31.234,
+  "speculative_tokens_per_second": 51.015,
+  "speedup": 1.633,
+  "acceptance": 0.6296,
+  "accepted_drafts": 34,
+  "drafted_tokens": 54,
+  "rounds": 27,
+  "mlx_reference": {
+    "target_tokens_per_second": 29.352,
+    "mtp_tokens_per_second": 51.766,
+    "speedup": 1.764,
+    "acceptance_percent": 61.4
+  },
+  "notes": "Fair end-to-end comparison on the SAME prompt as scripts/bench_mtp.py (--native). Native prefill is sequential M=1 (14 forwards) vs MLX batched NAX prefill, so prefill is excluded; decode-only. Fixes this session: GDN dispatch 1024->32 threads (was corrupting), rms_norm 32->256 threads, attention 1->256/32 threads/head, prompt-prefill path (speculative::prefill_prompt), MLX qmv_fast arithmetic (16 values/thread contiguous loads + byte-mask + pre-scaled input + scale*sum(q*x)+bias*sum(x)), GPU lm_head argmax (argmax_f32_partial + forward_token_decode + verify_block3_decode), the q4_qmv_wide3 stream-x restructure (drop the xs[3][16] register spill, MTP 44.7 -> ~50.1), and the GPU MTP head argmax (MtpRunner::forward_position_decode, MTP ~50.1 -> ~51.0)."
+}

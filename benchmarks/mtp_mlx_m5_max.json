@@ -1,0 +1,23 @@
+{
+  "date": "2026-08-20",
+  "device": "Apple M5 Max",
+  "mlx": "0.32",
+  "tokens": 64,
+  "runs": 3,
+  "draft_block_size": 3,
+  "temperature": 0,
+  "output_captured": true,
+  "target_snapshot": "3e6447f082e89cc7f0bc6e5441afd38dfce760ff",
+  "draft_snapshot": "b643c01b6d3b094e325edb6ebd832e16c486c575",
+  "target_tokens_per_second": [29.445, 29.352, 29.198],
+  "mtp_tokens_per_second": [51.766, 51.840, 51.126],
+  "target_median_tokens_per_second": 29.352,
+  "mtp_median_tokens_per_second": 51.766,
+  "speedup": 1.763627691469065,
+  "target_median_peak_memory_gb": 18.574,
+  "mtp_median_peak_memory_gb": 17.403,
+  "mtp_acceptance_percent": 61.4,
+  "mtp_accepted_drafts_per_round": 1.21,
+  "mtp_emitted_tokens_per_round": 2.21,
+  "mtp_rounds": 29
+}
