@@ -28,28 +28,36 @@ Built from the silicon up: no bindings to MLX, no frameworks — just Rust talki
 
 ## 🚀 Quickstart
 
-Three steps on any Apple Silicon Mac. Nothing else to install but Rust and the
-weights.
+### Install
+
+Two installs on any Apple Silicon Mac, then you're done:
 
 ```bash
-# 1. Get the toolchain (Metal shaders are baked into the binary at runtime)
-xcode-select --install
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# the Hugging Face CLI (for the model weights)
+brew install hf
 
-# 2. Download the model weights from Hugging Face
-brew install hf                                   # the HF CLI
-hf download mlx-community/Qwen3.8-27B-4bit
-hf download mlx-community/Qwen3.8-27B-MTP-4bit   # optional MTP drafter
-
-# 3. Build & serve an OpenAI-compatible endpoint
-cargo run --release --bin cli -- serve \
-  mlx-community/Qwen3.8-27B-4bit mlx-community/Qwen3.8-27B-MTP-4bit --port 8000
+# this project — the prebuilt binary, via the Homebrew tap
+brew install agnosticeng/lisa-rs/lisa
 ```
 
-That's it — you're up. The weights land in `~/.cache/huggingface/hub`, which
-the engine auto-resolves by ID. See the model pages for details:
-[Qwen3.8-27B-4bit](https://huggingface.co/mlx-community/Qwen3.8-27B-4bit) ·
-[Qwen3.8-27B-MTP-4bit](https://huggingface.co/mlx-community/Qwen3.8-27B-MTP-4bit).
+`brew` puts `lisa` on your PATH automatically — no shell config needed.
+
+### Run
+
+Grab the weights, then start an OpenAI-compatible server:
+
+```bash
+# download the models from Hugging Face
+hf download mlx-community/Qwen3.8-27B-4bit
+hf download mlx-community/Qwen3.8-27B-MTP-4bit    # optional MTP drafter
+
+# start the server
+lisa serve mlx-community/Qwen3.8-27B-4bit mlx-community/Qwen3.8-27B-MTP-4bit --port 8000
+```
+
+The weights land in `~/.cache/huggingface/hub`, which the engine auto-resolves
+by ID (see the model pages for details: [Qwen3.8-27B-4bit](https://huggingface.co/mlx-community/Qwen3.8-27B-4bit)
+· [Qwen3.8-27B-MTP-4bit](https://huggingface.co/mlx-community/Qwen3.8-27B-MTP-4bit)).
 The drafter is optional (skip it to run target-only).
 
 ### Try it
@@ -72,9 +80,7 @@ Or point any OpenAI-compatible client at it (opencode, Cursor,
 
 ```bash
 # Native target-only + MTP block-3, 64 tokens
-cargo run --release --bin cli -- run \
-  mlx-community/Qwen3.8-27B-4bit \
-  mlx-community/Qwen3.8-27B-MTP-4bit 64
+lisa run mlx-community/Qwen3.8-27B-4bit mlx-community/Qwen3.8-27B-MTP-4bit 64
 
 # Head-to-head vs the MLX reference on the same prompt
 /tmp/mlxenv/bin/python scripts/bench_mtp.py --native
